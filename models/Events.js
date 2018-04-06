@@ -6,6 +6,10 @@ var eventSchema = new Schema({
     type: Date, 
     default: Date.now 
   },
+  event_category: {
+    type: String,
+    enum: ['przyjęcie','wydalenia','pomiar'],
+  },
   event_type: {
     type: String,
     enum: ['tpn','drip','food','drink','drug','colostomy','ilestomy','weight','pressure','temperature'],
@@ -18,8 +22,7 @@ var eventSchema = new Schema({
   },
   comment: String,
   values: [],
-  product_id: Number,
-  patient_id: Number,
+  product: String,
 });
 
 module.exports = mongoose.model('Event', eventSchema);
