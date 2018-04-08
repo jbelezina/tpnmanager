@@ -5,8 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var Event = require('./models/Events');
+var Event = require('./models/Event');
+var Product = require('./models/Product');
 var events = require('./routes/Events');
+var products = require('./routes/Products');
 const mongoose = require('mongoose');
 
 app.use(logger('dev'));
