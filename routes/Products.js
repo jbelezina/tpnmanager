@@ -11,6 +11,46 @@ router.get('/', function(req, res, next) {
      });
 });
 
+/* GET all tpn products. */
+router.get('/tpn', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'tpn'}, function(err, products) {
+        res.json(products);
+     });
+});
+
+/* GET all drip products. */
+router.get('/drip', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'drip'}, function(err, products) {
+        res.json(products);
+     });
+});
+
+/* GET all food products. */
+router.get('/food', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'food'}, function(err, products) {
+        res.json(products);
+     });
+});
+
+/* GET all drink products. */
+router.get('/drink', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'food'}, function(err, products) {
+        res.json(products);
+     });
+});
+
+/* GET all drink products. */
+router.get('/drug', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'drug'}, function(err, products) {
+        res.json(products);
+     });
+});
+
 router.post('/', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
     console.log(req.body);
