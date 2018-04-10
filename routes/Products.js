@@ -38,7 +38,7 @@ router.get('/food', function(req, res, next) {
 /* GET all drink products. */
 router.get('/drink', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
-    Product.find({type:'food'}, function(err, products) {
+    Product.find({type:'drink'}, function(err, products) {
         res.json(products);
      });
 });
