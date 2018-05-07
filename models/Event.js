@@ -21,7 +21,7 @@ var eventSchema = new Schema({
     type: Date,
   },
   comment: String,
-  values: [],
+  values: [{value:Number, measure:String}],
   product: String,
 });
 

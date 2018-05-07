@@ -19,6 +19,21 @@ router.get('/tpn', function(req, res, next) {
      });
 });
 
+/* GET all tpn products. */
+router.get('/tpn/dropdown', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'tpn'}, function(err, products) {
+        
+        let options = []
+        
+        products.forEach(item=>{
+            options.push({value:item.name})
+        })
+
+        res.json(options);
+     });
+});
+
 /* GET all drip products. */
 router.get('/drip', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
