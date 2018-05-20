@@ -8,7 +8,7 @@ var eventSchema = new Schema({
   },
   event_category: {
     type: String,
-    enum: ['przyjecie','wydalenia','pomiar'],
+    enum: ['przyjecie','wydalenie','pomiar'],
   },
   event_type: {
     type: String,
