@@ -12,7 +12,7 @@ var eventSchema = new Schema({
   },
   event_type: {
     type: String,
-    enum: ['tpn','drip','food','drink','drug','colostomy','ilestomy','weight','pressure','temperature'],
+    enum: ['tpn','drip','food','drink','drug','colostomy','ilestomy','weight','pressure','temperature','urine'],
   },
   time_start: {
     type: Date,

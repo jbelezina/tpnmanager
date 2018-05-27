@@ -19,7 +19,7 @@ router.get('/tpn', function(req, res, next) {
      });
 });
 
-/* GET all tpn products. */
+/* GET all tpn products in dropdown format. */
 router.get('/tpn/dropdown', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
     Product.find({type:'tpn'}, function(err, products) {
@@ -27,7 +27,7 @@ router.get('/tpn/dropdown', function(req, res, next) {
         let options = []
         
         products.forEach(item=>{
-            options.push({value:item.name})
+            options.push({value:item.name, label:item.name})
         })
 
         res.json(options);
@@ -42,11 +42,41 @@ router.get('/drip', function(req, res, next) {
      });
 });
 
+/* GET all tpn products in dropdown format. */
+router.get('/drip/dropdown', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'drip'}, function(err, products) {
+        
+        let options = []
+        
+        products.forEach(item=>{
+            options.push({value:item.name, label:item.name})
+        })
+
+        res.json(options);
+     });
+});
+
 /* GET all food products. */
 router.get('/food', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
     Product.find({type:'food'}, function(err, products) {
         res.json(products);
+     });
+});
+
+/* GET all food products in dropdown format. */
+router.get('/food/dropdown', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'food'}, function(err, products) {
+        
+        let options = []
+        
+        products.forEach(item=>{
+            options.push({value:item.name, label:item.name})
+        })
+
+        res.json(options);
      });
 });
 
@@ -58,11 +88,41 @@ router.get('/drink', function(req, res, next) {
      });
 });
 
-/* GET all drink products. */
+/* GET all drink products in dropdown format. */
+router.get('/drink/dropdown', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'drink'}, function(err, products) {
+        
+        let options = []
+        
+        products.forEach(item=>{
+            options.push({value:item.name, label:item.name})
+        })
+
+        res.json(options);
+     });
+});
+
+/* GET all drug products. */
 router.get('/drug', function(req, res, next) {
     mongoose.connect('mongodb://127.0.0.1:27017/');
     Product.find({type:'drug'}, function(err, products) {
         res.json(products);
+     });
+});
+
+/* GET all drug products in dropdown format. */
+router.get('/drug/dropdown', function(req, res, next) {
+    mongoose.connect('mongodb://127.0.0.1:27017/');
+    Product.find({type:'drug'}, function(err, products) {
+        
+        let options = []
+        
+        products.forEach(item=>{
+            options.push({value:item.name, label:item.name})
+        })
+
+        res.json(options);
      });
 });
 
