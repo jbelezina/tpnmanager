@@ -1,14 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 var Event = require('../models/Event');
+var mongoose = require('mongoose');
+var options =   {
+    poolSize: 100,
+    promiseLibrary: global.Promise
+  }     
+var mongodbUri = 'mongodb://127.0.0.1:27017';
+mongoose.connect(mongodbUri, options);
+var conn = mongoose.connection;             
+conn.on('error', console.error.bind(console, 'connection error:'));  
+conn.once('open', function() {
 
+// old URI 'mongodb://127.0.0.1:27017'
 /* GET all Events. */
 router.get('/', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     Event
         .find({})
-        .sort({time_stop:-1})
         .exec(function(err, events) {
         res.json(events);
      });
@@ -16,7 +24,6 @@ router.get('/', function(req, res, next) {
 
 /* GET X no. of temperature events. */
 router.get('/temperature', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     console.log(req.query);
     Event
         .find({"event_type":"temperature"})
@@ -29,7 +36,6 @@ router.get('/temperature', function(req, res, next) {
 
 /* GET X no. of temperature events. */
 router.get('/weight', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     console.log(req.query);
     Event
         .find({"event_type":"weight"})
@@ -42,7 +48,6 @@ router.get('/weight', function(req, res, next) {
 
 /* GET X no. of pressure events. */
 router.get('/pressure', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     console.log(req.query);
     Event
         .find({"event_type":"pressure"})
@@ -55,11 +60,9 @@ router.get('/pressure', function(req, res, next) {
 
 /* GET X no. of in events. */
 router.get('/inEvents', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     let d = new Date();
     d.setDate(d.getDate() - 30);
-    let fromDate = d.toISOString();
-    
+    let fromDate = d.toISOString();    
     Event
         .find({ $and: [{"event_category":"przyjecie"},{"time_stop": { $gte : fromDate }}] })
         .sort({time_stop:-1})
@@ -68,13 +71,11 @@ router.get('/inEvents', function(req, res, next) {
      });
 });
 
-/* GET X no. of in events. */
+/* GET X no. of out events. */
 router.get('/outEvents', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     let d = new Date();
     d.setDate(d.getDate() - 30);
-    let fromDate = d.toISOString();
-    
+    let fromDate = d.toISOString();   
     Event
         .find({ $and: [{"event_category":"wydalenie"},{"time_stop": { $gte : fromDate }}] })
         .sort({time_stop:-1})
@@ -83,9 +84,7 @@ router.get('/outEvents', function(req, res, next) {
      });
 });
 
-
 router.post('/', function(req, res, next) {
-    mongoose.connect('mongodb://127.0.0.1:27017/');
     console.log(req.body);
 	const newEvent = new Event(req.body);  
     newEvent.save(err => {  
@@ -93,6 +92,6 @@ router.post('/', function(req, res, next) {
     return res.status(200).send(newEvent);
 });
 });
-
+});
 
 module.exports = router;
