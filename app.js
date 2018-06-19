@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var Event = require('./models/Event');
 var Product = require('./models/Product');
+var alerts = require('./routes/Alerts')
 var events = require('./routes/Events');
 var products = require('./routes/Products');
 const mongoose = require('mongoose');
@@ -20,9 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use('/api/events', events);
 app.use('/api/products', products);
+app.use('/api/alerts', alerts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
