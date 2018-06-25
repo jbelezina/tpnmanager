@@ -90,8 +90,8 @@ router.post('/', function(req, res, next) {
     newEvent.save(err => {  
     if (err) return res.status(500).send(err);
     return res.status(200).send(newEvent);
-});
-});
+        });
+    });
 });
 
 module.exports = router;
