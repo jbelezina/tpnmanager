@@ -23,19 +23,39 @@ router.get('/', function(req, res, next) {
      })
 });
 
+/* PUT Alerts by _id. */
+router.put('/', function(req, res, next) {
+  
+  console.log('req.body to: ' + req.body);
+
+  Alert
+      .findById(req.body.alertID)
+      .exec(function(err, alert) {
+        if (err)
+        res.send(err);
+        alert.value = req.body.value;  
+        alert.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Alert updated!' });
+        });
+      })
+});
+
 router.get('/maxWeeklyTpn', function(req, res, next) {
   let actual = 0;
   let max;
+  let description;
+  let measure;
   Alert
       .findById("5b293c0d039cc229b8db7095")
       .exec(function(err, alert) {
         max = alert.value;
+        description = alert.description;
+        measure = alert.measure;
         console.log('max to jest :' + max);
-        let startDate = new Date()  // Current date
-        startDate.setDate(startDate.getDate()-7) // Subtract 7 days
-        startDate.setHours(0)   // Set the hour, minute and second components to 0
-        startDate.setMinutes(0)
-        startDate.setSeconds(0)
+        let startDate = new Date() 
+        startDate.setDate(startDate.getDate()-7) 
         Event
             .find(
               {time_stop:{$gte: startDate},
@@ -49,6 +69,8 @@ router.get('/maxWeeklyTpn', function(req, res, next) {
             res.json({
               max,
               actual,
+              description,
+              measure,
             })
           });
         });
@@ -57,16 +79,17 @@ router.get('/maxWeeklyTpn', function(req, res, next) {
 router.get('/maxDailyFood', function(req, res, next) {
   let actual = 0;
   let max;
+  let description;
+  let measure;
   Alert
       .findById("5b293c2d40ed4627743a63ee")
       .exec(function(err, alert) {
         max = alert.value;
+        description = alert.description;
+        measure = alert.measure;
         console.log('max to jest :' + max);
-        let startDate = new Date()  // Current date
-        startDate.setDate(startDate.getDate()-1) // Subtract 1 day
-//        startDate.setHours(0)   // Set the hour, minute and second components to 0
-//        startDate.setMinutes(0)
-//        startDate.setSeconds(0)
+        let startDate = new Date() 
+        startDate.setDate(startDate.getDate()-1) 
         Event
             .find(
               {time_stop:{$gte: startDate},
@@ -80,6 +103,8 @@ router.get('/maxDailyFood', function(req, res, next) {
             res.json({
               max,
               actual,
+              description,
+              measure,
             })
           });
         });
@@ -88,16 +113,17 @@ router.get('/maxDailyFood', function(req, res, next) {
 router.get('/maxDailyDrink', function(req, res, next) {
   let actual = 0;
   let max;
+  let description;
+  let measure;
   Alert
       .findById("5b293c4bed26a93d1887954c")
       .exec(function(err, alert) {
         max = alert.value;
+        description = alert.description;
+        measure = alert.measure;
         console.log('max to jest :' + max);
-        let startDate = new Date()  // Current date
-        startDate.setDate(startDate.getDate()-1) // Subtract 1 day
-//        startDate.setHours(0)   // Set the hour, minute and second components to 0
-//        startDate.setMinutes(0)
-//        startDate.setSeconds(0)
+        let startDate = new Date();
+        startDate.setDate(startDate.getDate()-1); 
         Event
             .find(
               {time_stop:{$gte: startDate},
@@ -111,6 +137,8 @@ router.get('/maxDailyDrink', function(req, res, next) {
             res.json({
               max,
               actual,
+              description,
+              measure,
             })
           });
         });
